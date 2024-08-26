@@ -1,0 +1,46 @@
+﻿@using Ideal.Models;
+@model IEnumerable<Sample>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<div>
+    <table id="example" class="table table-striped nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Serial</th>
+                <th>Web-Link</th>
+                <th>Result</th>
+                @if (type == "Admin")
+                {
+                    <th>User</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SearchedData item in ViewBag.searchedData)
+            {
+                <tr>
+                    <td>@(serial++)</td>
+                    <td>@item.SearchedKey</td>
+                    <td>@item.SearchedValue</td>
+                    @if (type == "Admin")
+                    {
+                        foreach (UserOperation i in ViewBag.User)
+                        {
+                            if (i.ID == @item.UserID)
+                            {
+                                <td>@i.UserName</td>
+                                break;
+                            }
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
